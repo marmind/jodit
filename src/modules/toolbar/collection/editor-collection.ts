@@ -28,7 +28,7 @@ export class ToolbarEditorCollection extends ToolbarCollection<IJodit> {
 		const disabled = super.shouldBeDisabled(button);
 
 		if (disabled !== undefined) {
-			return !!disabled;
+			return disabled;
 		}
 
 		const mode: number =
@@ -44,7 +44,7 @@ export class ToolbarEditorCollection extends ToolbarCollection<IJodit> {
 		const active = super.shouldBeActive(button);
 
 		if (active !== undefined) {
-			return !!active;
+			return active;
 		}
 
 		const element = this.j.selection ? this.j.s.current() : null;
