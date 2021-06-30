@@ -11492,7 +11492,7 @@ var ToolbarEditorCollection = (function (_super) {
     ToolbarEditorCollection.prototype.shouldBeDisabled = function (button) {
         var disabled = _super.prototype.shouldBeDisabled.call(this, button);
         if (disabled !== undefined) {
-            return disabled;
+            return !!disabled;
         }
         var mode = button.control.mode === undefined
             ? consts.MODE_WYSIWYG
@@ -11503,7 +11503,7 @@ var ToolbarEditorCollection = (function (_super) {
         var _this = this;
         var active = _super.prototype.shouldBeActive.call(this, button);
         if (active !== undefined) {
-            return active;
+            return !!active;
         }
         var element = this.j.selection ? this.j.s.current() : null;
         if (!element) {
@@ -17002,7 +17002,7 @@ var Uploader = (function (_super) {
     Uploader.prototype.send = function (data, success) {
         var _this = this;
         var requestData = this.buildData(data), sendData = function (request) {
-            var ajax = new ajax_1.Ajax(_this.j, {
+            var ajax = new ajax_1.Ajax(_this.j || _this, {
                 xhr: function () {
                     var xhr = new XMLHttpRequest();
                     if (_this.j.ow.FormData !== undefined &&

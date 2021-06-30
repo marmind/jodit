@@ -13625,7 +13625,7 @@ let ToolbarEditorCollection = class ToolbarEditorCollection extends ToolbarColle
     shouldBeDisabled(button) {
         const disabled = super.shouldBeDisabled(button);
         if (disabled !== undefined) {
-            return disabled;
+            return !!disabled;
         }
         const mode = button.control.mode === undefined
             ? constants.MODE_WYSIWYG
@@ -13635,7 +13635,7 @@ let ToolbarEditorCollection = class ToolbarEditorCollection extends ToolbarColle
     shouldBeActive(button) {
         const active = super.shouldBeActive(button);
         if (active !== undefined) {
-            return active;
+            return !!active;
         }
         const element = this.j.selection ? this.j.s.current() : null;
         if (!element) {
@@ -19220,7 +19220,7 @@ class Uploader extends component/* ViewComponent */.Hr {
     }
     send(data, success) {
         const requestData = this.buildData(data), sendData = (request) => {
-            const ajax = new Ajax(this.j, {
+            const ajax = new Ajax(this.j || this, {
                 xhr: () => {
                     const xhr = new XMLHttpRequest();
                     if (this.j.ow.FormData !== undefined &&
