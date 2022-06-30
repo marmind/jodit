@@ -87,8 +87,8 @@ export class Select {
 	 * Return current selection object
 	 */
 	get sel(): WindowSelection {
-		if (this.j.o.shadowRoot) {
-			return this.j.o.shadowRoot.getSelection();
+		if (this.j.o.shadowRoot && isFunction((<any>this.jodit.o.shadowRoot).getSelection)) {
+			return (<any>this.jodit.o.shadowRoot).getSelection();
 		}
 
 		return this.win.getSelection();
@@ -171,8 +171,8 @@ export class Select {
 			const rng = this.createRange();
 
 			(() => {
-				if (this.doc.caretPositionFromPoint) {
-					const caret = this.doc.caretPositionFromPoint(x, y);
+				if ((<any>this.doc).caretPositionFromPoint) {
+					const caret = (<any>this.doc).caretPositionFromPoint(x, y);
 
 					if (caret) {
 						rng.setStart(caret.offsetNode, caret.offset);
@@ -182,7 +182,7 @@ export class Select {
 
 				if (this.doc.caretRangeFromPoint) {
 					const caret = this.doc.caretRangeFromPoint(x, y);
-					rng.setStart(caret.startContainer, caret.startOffset);
+					rng.setStart(caret!.startContainer, caret!.startOffset);
 				}
 			})();
 
