@@ -15469,8 +15469,8 @@ var Select = (function () {
     });
     Object.defineProperty(Select.prototype, "sel", {
         get: function () {
-            if (this.j.o.shadowRoot) {
-                return this.j.o.shadowRoot.getSelection();
+            if (this.j.o.shadowRoot && helpers_1.isFunction(this.jodit.o.shadowRoot.getSelection)) {
+                return this.jodit.o.shadowRoot.getSelection();
             }
             return this.win.getSelection();
         },
@@ -23470,15 +23470,17 @@ function pasteInsertHtml(e, editor, html) {
     if ((e === null || e === void 0 ? void 0 : e.type) === 'drop') {
         editor.s.insertCursorAtPoint(e.clientX, e.clientY);
     }
-    var result = editor.e.fire('beforePasteInsert', html);
-    if (!helpers_1.isVoid(result) &&
-        (helpers_1.isString(result) || helpers_1.isNumber(result) || dom_1.Dom.isNode(result, editor.ew))) {
-        html = result;
-    }
-    if (helpers_1.isString(html)) {
-        html = removeExtraFragments(html);
-    }
-    editor.s.insertHTML(html);
+    var resultOrPromise = editor.e.fire('beforePasteInsert', html);
+    Promise.resolve(resultOrPromise).then(function (result) {
+        if (!helpers_1.isVoid(result) &&
+            (helpers_1.isString(result) || helpers_1.isNumber(result) || dom_1.Dom.isNode(result, editor.ew))) {
+            html = result;
+        }
+        if (helpers_1.isString(html)) {
+            html = removeExtraFragments(html);
+        }
+        editor.s.insertHTML(html);
+    });
 }
 exports.pasteInsertHtml = pasteInsertHtml;
 function getAllTypes(dt) {

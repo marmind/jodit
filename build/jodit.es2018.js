@@ -17770,8 +17770,8 @@ class Select {
         return this.j.ed;
     }
     get sel() {
-        if (this.j.o.shadowRoot) {
-            return this.j.o.shadowRoot.getSelection();
+        if (this.j.o.shadowRoot && (0,helpers.isFunction)(this.jodit.o.shadowRoot.getSelection)) {
+            return this.jodit.o.shadowRoot.getSelection();
         }
         return this.win.getSelection();
     }
@@ -21894,15 +21894,17 @@ function pasteInsertHtml(e, editor, html) {
     if ((e === null || e === void 0 ? void 0 : e.type) === 'drop') {
         editor.s.insertCursorAtPoint(e.clientX, e.clientY);
     }
-    const result = editor.e.fire('beforePasteInsert', html);
-    if (!(0,helpers.isVoid)(result) &&
-        ((0,helpers.isString)(result) || (0,helpers.isNumber)(result) || dom/* Dom.isNode */.i.isNode(result, editor.ew))) {
-        html = result;
-    }
-    if ((0,helpers.isString)(html)) {
-        html = removeExtraFragments(html);
-    }
-    editor.s.insertHTML(html);
+    const resultOrPromise = editor.e.fire('beforePasteInsert', html);
+    Promise.resolve(resultOrPromise).then((result) => {
+        if (!(0,helpers.isVoid)(result) &&
+            ((0,helpers.isString)(result) || (0,helpers.isNumber)(result) || dom/* Dom.isNode */.i.isNode(result, editor.ew))) {
+            html = result;
+        }
+        if ((0,helpers.isString)(html)) {
+            html = removeExtraFragments(html);
+        }
+        editor.s.insertHTML(html);
+    });
 }
 function getAllTypes(dt) {
     const types = dt.types;
