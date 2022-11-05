@@ -84,6 +84,7 @@ export function sendFiles(
 	}
 
 	fileList = fileList.filter(a => a);
+	let upload: (() => Promise<any>) | undefined;
 
 	if (fileList.length) {
 		const form = new FormData();
@@ -141,10 +142,11 @@ export function sendFiles(
 			});
 		}
 
-		o.prepareData.call(uploader, form);
-
 		promises.push(
-			send(uploader, form)
+			Promise.resolve(o.prepareData.call(uploader, form))
+		);
+
+		upload = () => (send(uploader, form)
 				.then(resp => {
 					if (o.isSuccess.call(uploader, resp)) {
 						const handler = isFunction(handlerSuccess)
@@ -169,9 +171,8 @@ export function sendFiles(
 				})
 				.then(() => {
 					uploader.j.events && uploader.j.e.fire('filesWereUploaded');
-				})
-		);
+				}));
 	}
 
-	return Promise.all(promises);
+	return Promise.all(promises).then(() => upload?.());
 }
