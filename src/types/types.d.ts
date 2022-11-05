@@ -273,7 +273,7 @@ declare global {
 		jodit: HTMLDivElement;
 		svg: HTMLElement;
 		path: HTMLElement;
-		font: HTMLElement;
+		font: HTMLFontElement;
 		'jodit-media': HTMLElement;
 	}
 }
