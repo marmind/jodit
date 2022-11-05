@@ -17,7 +17,7 @@
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
 })(self, function() {
-return (self["webpackChunkjodit"] = self["webpackChunkjodit"] || []).push([[101],{
+return (self["webpackChunkjodit"] = self["webpackChunkjodit"] || []).push([[680],{
 
 /***/ 62844:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
