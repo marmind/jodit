@@ -1,0 +1,2 @@
+use npm-build-win.sh in a bash console to create a new release (eg. from Fork)
+afterwards you have to publish a new version to our npm registry: npm publish
