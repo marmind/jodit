@@ -1,5 +1,5 @@
 /*!
- * jodit - Jodit is awesome and usefully wysiwyg editor with filebrowser
+ * @marmind/jodit - Jodit is awesome and usefully wysiwyg editor with filebrowser
  * Author: Chupurnov <chupurnov@gmail.com> (https://xdsoft.net/)
  * Version: v3.23.3
  * Url: https://xdsoft.net/jodit/
@@ -17,7 +17,7 @@
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
 })(self, function() {
-return (self["webpackChunkjodit"] = self["webpackChunkjodit"] || []).push([[101],{
+return (self["webpackChunk_marmind_jodit"] = self["webpackChunk_marmind_jodit"] || []).push([[680],{
 
 /***/ 62844:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {

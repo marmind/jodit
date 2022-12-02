@@ -1,5 +1,5 @@
 /*!
- * jodit - Jodit is awesome and usefully wysiwyg editor with filebrowser
+ * @marmind/jodit - Jodit is awesome and usefully wysiwyg editor with filebrowser
  * Author: Chupurnov <chupurnov@gmail.com> (https://xdsoft.net/)
  * Version: v3.23.3
  * Url: https://xdsoft.net/jodit/
@@ -656,7 +656,7 @@ function __generator(thisArg, body) {
     function step(op) {
         if (f)
             throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _)
+        while (_)
             try {
                 if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
                     return t;
@@ -16492,6 +16492,7 @@ function send_files_sendFiles(uploader, files, handlerSuccess, handlerError, pro
         }
     }
     fileList = fileList.filter(a => a);
+    let upload;
     if (fileList.length) {
         const form = new FormData();
         form.append(o.pathVariableName, uploader.path);
@@ -16527,8 +16528,8 @@ function send_files_sendFiles(uploader, files, handlerSuccess, handlerError, pro
                 form.append(key, o.data[key]);
             });
         }
-        o.prepareData.call(uploader, form);
-        promises.push(send(uploader, form)
+        promises.push(Promise.resolve(o.prepareData.call(uploader, form)));
+        upload = () => (send(uploader, form)
             .then(resp => {
             if (o.isSuccess.call(uploader, resp)) {
                 const handler = (0,helpers.isFunction)(handlerSuccess)
@@ -16547,7 +16548,7 @@ function send_files_sendFiles(uploader, files, handlerSuccess, handlerError, pro
             uploader.j.events && uploader.j.e.fire('filesWereUploaded');
         }));
     }
-    return Promise.all(promises);
+    return Promise.all(promises).then(() => upload === null || upload === void 0 ? void 0 : upload());
 }
 
 ;// CONCATENATED MODULE: ./src/modules/uploader/helpers/index.ts
@@ -20551,7 +20552,7 @@ module.exports = {assert(){}};;
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}
 /******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkjodit"] = self["webpackChunkjodit"] || [];
+/******/ 		var chunkLoadingGlobal = self["webpackChunk_marmind_jodit"] = self["webpackChunk_marmind_jodit"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	}();
@@ -26862,6 +26863,7 @@ config/* Config.prototype.link */.D.prototype.link = {
     processPastedLink: true,
     noFollowCheckbox: true,
     openInNewTabCheckbox: true,
+    openInNewTab: true,
     modeClassName: 'input',
     selectMultipleClassName: true,
     selectSizeClassName: 3,
@@ -26972,7 +26974,7 @@ class link_link extends core_plugin/* Plugin */.S {
     }
     generateForm(current, close) {
         const { jodit } = this;
-        const i18n = jodit.i18n.bind(jodit), { openInNewTabCheckbox, noFollowCheckbox, formTemplate, formClassName, modeClassName } = jodit.o.link;
+        const i18n = jodit.i18n.bind(jodit), { openInNewTabCheckbox, openInNewTab, noFollowCheckbox, formTemplate, formClassName, modeClassName } = jodit.o.link;
         const html = formTemplate(jodit), form = (0,helpers.isString)(html)
             ? jodit.c.fromHTML(html, {
                 target_checkbox_box: openInNewTabCheckbox,
@@ -27138,8 +27140,10 @@ class link_link extends core_plugin/* Plugin */.S {
                         a.textContent = newContent;
                     }
                 }
-                if (openInNewTabCheckbox && target_checkbox) {
-                    (0,helpers.attr)(a, 'target', target_checkbox.checked ? '_blank' : null);
+                if (openInNewTabCheckbox && target_checkbox || openInNewTab) {
+                    const shouldBeOpenendInNewTab = (!target_checkbox && openInNewTab) ||
+                        (target_checkbox === null || target_checkbox === void 0 ? void 0 : target_checkbox.checked);
+                    (0,helpers.attr)(a, 'target', shouldBeOpenendInNewTab ? '_blank' : null);
                 }
                 if (noFollowCheckbox && nofollow_checkbox) {
                     (0,helpers.attr)(a, 'rel', nofollow_checkbox.checked ? 'nofollow' : null);
