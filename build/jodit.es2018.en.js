@@ -27503,15 +27503,17 @@ function pasteInsertHtml(e, editor, html) {
     if (isDragEvent(e)) {
         editor.s.insertCursorAtPoint(e.clientX, e.clientY);
     }
-    const result = editor.e.fire('beforePasteInsert', html);
-    if (!(0,checker/* isVoid */.nj)(result) &&
-        ((0,checker/* isString */.HD)(result) || (0,checker/* isNumber */.hj)(result) || dom_dom/* Dom.isNode */.i.isNode(result))) {
-        html = result;
-    }
-    if ((0,checker/* isString */.HD)(html)) {
-        html = removeExtraFragments(html);
-    }
-    editor.s.insertHTML(html);
+    const resultOrPromise = editor.e.fire('beforePasteInsert', html);
+    Promise.resolve(resultOrPromise).then((result) => {
+        if (!(0,checker/* isVoid */.nj)(result) &&
+            ((0,checker/* isString */.HD)(result) || (0,checker/* isNumber */.hj)(result) || dom_dom/* Dom.isNode */.i.isNode(result))) {
+            html = result;
+        }
+        if ((0,checker/* isString */.HD)(html)) {
+            html = removeExtraFragments(html);
+        }
+        editor.s.insertHTML(html);
+    });
 }
 function getAllTypes(dt) {
     const types = dt.types;
