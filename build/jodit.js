@@ -1,7 +1,7 @@
 /*!
- * jodit - Jodit is awesome and usefully wysiwyg editor with filebrowser
+ * @marmind/jodit - Jodit is awesome and usefully wysiwyg editor with filebrowser
  * Author: Chupurnov <chupurnov@gmail.com> (https://xdsoft.net/)
- * Version: v3.23.3
+ * Version: v3.23.3-1
  * Url: https://xdsoft.net/jodit/
  * License(s): MIT
  */
@@ -2364,8 +2364,8 @@ var NATIVE_BIND = __webpack_require__(32610);
 var FunctionPrototype = Function.prototype;
 var call = FunctionPrototype.call;
 var uncurryThisWithBind = NATIVE_BIND && FunctionPrototype.bind.bind(call, call);
-module.exports = NATIVE_BIND ? uncurryThisWithBind : function (fn) {
-    return function () {
+module.exports = function (fn) {
+    return NATIVE_BIND ? uncurryThisWithBind(fn) : function () {
         return call.apply(fn, arguments);
     };
 };
@@ -3637,10 +3637,10 @@ var store = __webpack_require__(45752);
 (module.exports = function (key, value) {
     return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-    version: '3.26.0',
+    version: '3.25.5',
     mode: IS_PURE ? 'pure' : 'global',
     copyright: '© 2014-2022 Denis Pushkarev (zloirock.ru)',
-    license: 'https://github.com/zloirock/core-js/blob/v3.26.0/LICENSE',
+    license: 'https://github.com/zloirock/core-js/blob/v3.25.5/LICENSE',
     source: 'https://github.com/zloirock/core-js'
 });
 
@@ -5487,7 +5487,7 @@ function __generator(thisArg, body) {
     function step(op) {
         if (f)
             throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _)
+        while (_)
             try {
                 if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
                     return t;
@@ -18124,7 +18124,7 @@ var View = (function (_super) {
         _this.parent = null;
         _this.mods = {};
         _this.components = new Set();
-        _this.version = "3.23.3";
+        _this.version = "3.23.3-1";
         _this.buffer = storage_1.Storage.makeStorage();
         _this.storage = storage_1.Storage.makeStorage(true, _this.componentName);
         _this.OPTIONS = View_1.defaultOptions;
@@ -18251,10 +18251,10 @@ var View = (function (_super) {
         configurable: true
     });
     View.prototype.getVersion = function () {
-        return "3.23.3";
+        return "3.23.3-1";
     };
     View.getVersion = function () {
-        return "3.23.3";
+        return "3.23.3-1";
     };
     View.prototype.initOptions = function (options) {
         this.options = (0, helpers_1.ConfigProto)(options || {}, (0, helpers_1.ConfigProto)(this.options || {}, View_1.defaultOptions));
@@ -25030,6 +25030,7 @@ function sendFiles(uploader, files, handlerSuccess, handlerError, process) {
         }
     }
     fileList = fileList.filter(function (a) { return a; });
+    var upload;
     if (fileList.length) {
         var form_1 = new FormData();
         form_1.append(o.pathVariableName, uploader.path);
@@ -25065,8 +25066,8 @@ function sendFiles(uploader, files, handlerSuccess, handlerError, process) {
                 form_1.append(key, o.data[key]);
             });
         }
-        o.prepareData.call(uploader, form_1);
-        promises.push((0, send_1.send)(uploader, form_1)
+        promises.push(Promise.resolve(o.prepareData.call(uploader, form_1)));
+        upload = function () { return ((0, send_1.send)(uploader, form_1)
             .then(function (resp) {
             if (o.isSuccess.call(uploader, resp)) {
                 var handler_1 = (0, helpers_1.isFunction)(handlerSuccess)
@@ -25083,9 +25084,9 @@ function sendFiles(uploader, files, handlerSuccess, handlerError, process) {
         })
             .then(function () {
             uploader.j.events && uploader.j.e.fire('filesWereUploaded');
-        }));
+        })); };
     }
-    return Promise.all(promises);
+    return Promise.all(promises).then(function () { return upload === null || upload === void 0 ? void 0 : upload(); });
 }
 exports.sendFiles = sendFiles;
 
@@ -32311,6 +32312,7 @@ config_1.Config.prototype.link = {
     processPastedLink: true,
     noFollowCheckbox: true,
     openInNewTabCheckbox: true,
+    openInNewTab: true,
     modeClassName: 'input',
     selectMultipleClassName: true,
     selectSizeClassName: 3,
@@ -32433,7 +32435,7 @@ var link = (function (_super) {
     };
     link.prototype.generateForm = function (current, close) {
         var jodit = this.jodit;
-        var i18n = jodit.i18n.bind(jodit), _a = jodit.o.link, openInNewTabCheckbox = _a.openInNewTabCheckbox, noFollowCheckbox = _a.noFollowCheckbox, formTemplate = _a.formTemplate, formClassName = _a.formClassName, modeClassName = _a.modeClassName;
+        var i18n = jodit.i18n.bind(jodit), _a = jodit.o.link, openInNewTabCheckbox = _a.openInNewTabCheckbox, openInNewTab = _a.openInNewTab, noFollowCheckbox = _a.noFollowCheckbox, formTemplate = _a.formTemplate, formClassName = _a.formClassName, modeClassName = _a.modeClassName;
         var html = formTemplate(jodit), form = (0, helpers_1.isString)(html)
             ? jodit.c.fromHTML(html, {
                 target_checkbox_box: openInNewTabCheckbox,
@@ -32601,8 +32603,10 @@ var link = (function (_super) {
                         a.textContent = newContent;
                     }
                 }
-                if (openInNewTabCheckbox && target_checkbox) {
-                    (0, helpers_1.attr)(a, 'target', target_checkbox.checked ? '_blank' : null);
+                if (openInNewTabCheckbox && target_checkbox || openInNewTab) {
+                    var shouldBeOpenendInNewTab = (!target_checkbox && openInNewTab) ||
+                        (target_checkbox === null || target_checkbox === void 0 ? void 0 : target_checkbox.checked);
+                    (0, helpers_1.attr)(a, 'target', shouldBeOpenendInNewTab ? '_blank' : null);
                 }
                 if (noFollowCheckbox && nofollow_checkbox) {
                     (0, helpers_1.attr)(a, 'rel', nofollow_checkbox.checked ? 'nofollow' : null);
@@ -33521,15 +33525,17 @@ function pasteInsertHtml(e, editor, html) {
     if (isDragEvent(e)) {
         editor.s.insertCursorAtPoint(e.clientX, e.clientY);
     }
-    var result = editor.e.fire('beforePasteInsert', html);
-    if (!(0, checker_1.isVoid)(result) &&
-        ((0, checker_1.isString)(result) || (0, checker_1.isNumber)(result) || dom_1.Dom.isNode(result))) {
-        html = result;
-    }
-    if ((0, checker_1.isString)(html)) {
-        html = removeExtraFragments(html);
-    }
-    editor.s.insertHTML(html);
+    var resultOrPromise = editor.e.fire('beforePasteInsert', html);
+    Promise.resolve(resultOrPromise).then(function (result) {
+        if (!(0, checker_1.isVoid)(result) &&
+            ((0, checker_1.isString)(result) || (0, checker_1.isNumber)(result) || dom_1.Dom.isNode(result))) {
+            html = result;
+        }
+        if ((0, checker_1.isString)(html)) {
+            html = removeExtraFragments(html);
+        }
+        editor.s.insertHTML(html);
+    });
 }
 exports.pasteInsertHtml = pasteInsertHtml;
 function getAllTypes(dt) {
@@ -40652,7 +40658,7 @@ module.exports = {assert(){}};;
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}
 /******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkjodit"] = self["webpackChunkjodit"] || [];
+/******/ 		var chunkLoadingGlobal = self["webpackChunk_marmind_jodit"] = self["webpackChunk_marmind_jodit"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	}();
