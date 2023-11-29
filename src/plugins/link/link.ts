@@ -139,6 +139,7 @@ export class link extends Plugin {
 		const i18n = jodit.i18n.bind(jodit),
 			{
 				openInNewTabCheckbox,
+				openInNewTab,
 				noFollowCheckbox,
 				formTemplate,
 				formClassName,
@@ -373,11 +374,14 @@ export class link extends Plugin {
 					}
 				}
 
-				if (openInNewTabCheckbox && target_checkbox) {
+				if (openInNewTabCheckbox && target_checkbox || openInNewTab) {
+					const shouldBeOpenedInNewTab =
+						(!target_checkbox && openInNewTab) ||
+						target_checkbox?.checked;
 					attr(
 						a,
 						'target',
-						target_checkbox.checked ? '_blank' : null
+						shouldBeOpenedInNewTab ? '_blank' : null
 					);
 				}
 

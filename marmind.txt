@@ -1,0 +1,3 @@
+1. use "npm version prelease" -> 3.23.3-1 to have the original version in-place
+2. use ./npm-build-win.sh in a bash console to create a new release (eg. from Fork)
+3. publish a new version to our npm registry: npm publish
