@@ -1,7 +1,7 @@
 /*!
- * jodit - Jodit is awesome and usefully wysiwyg editor with filebrowser
+ * @marmind/jodit - Jodit is awesome and usefully wysiwyg editor with filebrowser
  * Author: Chupurnov <chupurnov@gmail.com> (https://xdsoft.net/)
- * Version: v3.24.9
+ * Version: v3.24.9-0
  * Url: https://xdsoft.net/jodit/
  * License(s): MIT
  */
@@ -22,7 +22,7 @@ return /******/ (function() { // webpackBootstrap
 /***/ 11399:
 /***/ (function(module) {
 
-module.exports["default"] = ["Type something","About Jodit","Jodit Editor","Jodit User's Guide","contains detailed help for using","For information about the license, please go to our website:","Buy full version","Copyright © XDSoft.net - Chupurnov Valeriy. All rights reserved.","Anchor","Open in new tab","Open in fullsize","Clear Formatting","Fill color or set the text color","Redo","Undo","Bold","Italic","Insert Unordered List","Insert Ordered List","Align Center","Align Justify","Align Left","Align Right","Insert Horizontal Line","Insert Image","Insert file","Insert youtube/vimeo video","Insert link","Font size","Font family","Insert format block","Normal","Heading 1","Heading 2","Heading 3","Heading 4","Quote","Code","Insert","Insert table","Decrease Indent","Increase Indent","Select Special Character","Insert Special Character","Paint format","Change mode","Margins","top","right","bottom","left","Styles","Classes","Align","Right","Center","Left","--Not Set--","Src","Title","Alternative","Link","Open link in new tab","Image","file","Advanced","Image properties","Cancel","Ok","File Browser","Error on load list","Error on load folders","Are you sure?","Enter Directory name","Create directory","type name","Drop image","Drop file","or click","Alternative text","Upload","Browse","Background","Text","Top","Middle","Bottom","Insert column before","Insert column after","Insert row above","Insert row below","Delete table","Delete row","Delete column","Empty cell","Chars: %d","Words: %d","Strike through","Underline","superscript","subscript","Cut selection","Select all","Break","Search for","Replace with","Replace","Paste","Choose Content to Paste","source","bold","italic","brush","link","undo","redo","table","image","eraser","paragraph","fontsize","video","font","about","print","underline","strikethrough","indent","outdent","fullsize","shrink","hr","ul","ol","cut","selectall","Embed code","Open link","Edit link","No follow","Unlink","Update","pencil","Eye"," URL","Edit","Horizontal align","Filter","Sort by changed","Sort by name","Sort by size","Add folder","Reset","Save","Save as ...","Resize","Crop","Width","Height","Keep Aspect Ratio","Yes","No","Remove","Select","Select %s","Vertical align","Split","Merge","Add column","Add row","License: %s","Delete","Split vertical","Split horizontal","Border","Your code is similar to HTML. Keep as HTML?","Paste as HTML","Keep","Insert as Text","Insert only Text","You can only edit your own images. Download this image on the host?","The image has been successfully uploaded to the host!","palette","There are no files","Rename","Enter new name","preview","download","Paste from clipboard","Your browser doesn't support direct access to the clipboard.","Copy selection","copy","Border radius","Show all","Apply","Please fill out this field","Please enter a web address","Default","Circle","Dot","Quadrate","Find","Find Previous","Find Next","The pasted content is coming from a Microsoft Word/Excel document. Do you want to keep the format or clean it up?","Word Paste Detected","Clean","Insert className","Press Alt for custom resizing"]
+module.exports["default"] = ["Type something","Advanced","About Jodit","Jodit Editor","Jodit User's Guide","contains detailed help for using","For information about the license, please go to our website:","Buy full version","Copyright © XDSoft.net - Chupurnov Valeriy. All rights reserved.","Anchor","Open in new tab","Open in fullsize","Clear Formatting","Fill color or set the text color","Redo","Undo","Bold","Italic","Insert Unordered List","Insert Ordered List","Align Center","Align Justify","Align Left","Align Right","Insert Horizontal Line","Insert Image","Insert file","Insert youtube/vimeo video","Insert link","Font size","Font family","Insert format block","Normal","Heading 1","Heading 2","Heading 3","Heading 4","Quote","Code","Insert","Insert table","Decrease Indent","Increase Indent","Select Special Character","Insert Special Character","Paint format","Change mode","Margins","top","right","bottom","left","Styles","Classes","Align","Right","Center","Left","--Not Set--","Src","Title","Alternative","Link","Open link in new tab","Image","file","Image properties","Cancel","Ok","Your code is similar to HTML. Keep as HTML?","Paste as HTML","Keep","Clean","Insert as Text","Word Paste Detected","The pasted content is coming from a Microsoft Word/Excel document. Do you want to keep the format or clean it up?","Insert only Text","File Browser","Error on load list","Error on load folders","Are you sure?","Enter Directory name","Create directory","type name","Drop image","Drop file","or click","Alternative text","Browse","Upload","Background","Text","Top","Middle","Bottom","Insert column before","Insert column after","Insert row above","Insert row below","Delete table","Delete row","Delete column","Empty cell","Delete","Strike through","Underline","Break","Search for","Replace with","Replace","Edit","Vertical align","Horizontal align","Filter","Sort by changed","Sort by name","Sort by size","Add folder","Split vertical","Split horizontal","Split","Merge","Add column","Add row","Border","Embed code","Update","superscript","subscript","Cut selection","Paste","Choose Content to Paste","Chars: %d","Words: %d","All","Select %s","Select all","source","bold","italic","brush","link","undo","redo","table","image","eraser","paragraph","fontsize","video","font","about","print","underline","strikethrough","indent","outdent","fullsize","shrink","hr","ul","ol","Lower Alpha","Upper Alpha","Lower Roman","Upper Roman","Lower Greek","cut","selectall","Open link","Edit link","No follow","Unlink","Eye","pencil"," URL","Reset","Save","Save as ...","Resize","Crop","Width","Height","Keep Aspect Ratio","Yes","No","Remove","Select","You can only edit your own images. Download this image on the host?","The image has been successfully uploaded to the host!","palette","There are no files","Rename","Enter new name","preview","download","Paste from clipboard","Your browser doesn't support direct access to the clipboard.","Copy selection","copy","Border radius","Show all","Apply","Please fill out this field","Please enter a web address","Default","Circle","Dot","Quadrate","Find","Find Previous","Find Next","Insert className","Press Alt for custom resizing"]
 
 /***/ }),
 
@@ -11106,10 +11106,10 @@ let View = View_1 = class View extends jodit_modules__WEBPACK_IMPORTED_MODULE_3_
         return this.__isFullSize;
     }
     getVersion() {
-        return "3.24.9";
+        return "3.24.9-0";
     }
     static getVersion() {
-        return "3.24.9";
+        return "3.24.9-0";
     }
     initOptions(options) {
         this.options = (0,jodit_core_helpers__WEBPACK_IMPORTED_MODULE_1__.ConfigProto)(options || {}, (0,jodit_core_helpers__WEBPACK_IMPORTED_MODULE_1__.ConfigProto)(this.options || {}, View_1.defaultOptions));
@@ -11132,7 +11132,7 @@ let View = View_1 = class View extends jodit_modules__WEBPACK_IMPORTED_MODULE_3_
         this.parent = null;
         this.mods = {};
         this.components = new Set();
-        this.version = "3.24.9";
+        this.version = "3.24.9-0";
         this.buffer = _storage__WEBPACK_IMPORTED_MODULE_0__/* .Storage.makeStorage */ .Ke.makeStorage();
         this.storage = _storage__WEBPACK_IMPORTED_MODULE_0__/* .Storage.makeStorage */ .Ke.makeStorage(true, this.componentName);
         this.OPTIONS = View_1.defaultOptions;
@@ -17063,6 +17063,7 @@ function send_files_sendFiles(uploader, files, handlerSuccess, handlerError, pro
         }
     }
     fileList = fileList.filter(a => a);
+    let upload;
     if (fileList.length) {
         const form = new FormData();
         form.append(o.pathVariableName, uploader.path);
@@ -17098,8 +17099,8 @@ function send_files_sendFiles(uploader, files, handlerSuccess, handlerError, pro
                 form.append(key, o.data[key]);
             });
         }
-        o.prepareData.call(uploader, form);
-        promises.push(send(uploader, form)
+        promises.push(Promise.resolve(o.prepareData.call(uploader, form)));
+        upload = () => (send(uploader, form)
             .then(resp => {
             if (o.isSuccess.call(uploader, resp)) {
                 const handler = (0,helpers.isFunction)(handlerSuccess)
@@ -17118,7 +17119,7 @@ function send_files_sendFiles(uploader, files, handlerSuccess, handlerError, pro
             uploader.j.events && uploader.j.e.fire('filesWereUploaded');
         }));
     }
-    return Promise.all(promises);
+    return Promise.all(promises).then(() => upload === null || upload === void 0 ? void 0 : upload());
 }
 
 ;// CONCATENATED MODULE: ./src/modules/uploader/helpers/index.ts
@@ -21184,7 +21185,7 @@ module.exports = {assert(){}};;
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}
 /******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkjodit"] = self["webpackChunkjodit"] || [];
+/******/ 		var chunkLoadingGlobal = self["webpackChunk_marmind_jodit"] = self["webpackChunk_marmind_jodit"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	}();
@@ -27535,6 +27536,7 @@ config/* Config.prototype.link */.D.prototype.link = {
     processPastedLink: true,
     noFollowCheckbox: true,
     openInNewTabCheckbox: true,
+    openInNewTab: true,
     modeClassName: 'input',
     selectMultipleClassName: true,
     selectSizeClassName: 3,
@@ -27654,7 +27656,7 @@ class link_link extends core_plugin/* Plugin */.S {
     }
     __generateForm(current, close) {
         const { jodit } = this;
-        const i18n = jodit.i18n.bind(jodit), { openInNewTabCheckbox, noFollowCheckbox, formTemplate, formClassName, modeClassName } = jodit.o.link;
+        const i18n = jodit.i18n.bind(jodit), { openInNewTabCheckbox, openInNewTab, noFollowCheckbox, formTemplate, formClassName, modeClassName } = jodit.o.link;
         const html = formTemplate(jodit), form = (0,helpers.isString)(html)
             ? jodit.c.fromHTML(html, {
                 target_checkbox_box: openInNewTabCheckbox,
@@ -27820,8 +27822,10 @@ class link_link extends core_plugin/* Plugin */.S {
                         a.textContent = newContent;
                     }
                 }
-                if (openInNewTabCheckbox && target_checkbox) {
-                    (0,helpers.attr)(a, 'target', target_checkbox.checked ? '_blank' : null);
+                if (openInNewTabCheckbox && target_checkbox || openInNewTab) {
+                    const shouldBeOpenedInNewTab = (!target_checkbox && openInNewTab) ||
+                        (target_checkbox === null || target_checkbox === void 0 ? void 0 : target_checkbox.checked);
+                    (0,helpers.attr)(a, 'target', shouldBeOpenedInNewTab ? '_blank' : null);
                 }
                 if (noFollowCheckbox && nofollow_checkbox) {
                     (0,helpers.attr)(a, 'rel', nofollow_checkbox.checked ? 'nofollow' : null);
@@ -28181,15 +28185,17 @@ function pasteInsertHtml(e, editor, html) {
     if (isDragEvent(e)) {
         editor.s.insertCursorAtPoint(e.clientX, e.clientY);
     }
-    const result = editor.e.fire('beforePasteInsert', html);
-    if (!(0,checker/* isVoid */.nj)(result) &&
-        ((0,checker/* isString */.HD)(result) || (0,checker/* isNumber */.hj)(result) || dom_dom/* Dom.isNode */.i.isNode(result))) {
-        html = result;
-    }
-    if ((0,checker/* isString */.HD)(html)) {
-        html = removeExtraFragments(html);
-    }
-    editor.s.insertHTML(html);
+    const resultOrPromise = editor.e.fire('beforePasteInsert', html);
+    Promise.resolve(resultOrPromise).then((result) => {
+        if (!(0,checker/* isVoid */.nj)(result) &&
+            ((0,checker/* isString */.HD)(result) || (0,checker/* isNumber */.hj)(result) || dom_dom/* Dom.isNode */.i.isNode(result))) {
+            html = result;
+        }
+        if ((0,checker/* isString */.HD)(html)) {
+            html = removeExtraFragments(html);
+        }
+        editor.s.insertHTML(html);
+    });
 }
 function getAllTypes(dt) {
     const types = dt.types;
